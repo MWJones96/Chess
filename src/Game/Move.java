@@ -10,4 +10,9 @@ public class Move
         m_x = x;
         m_y = y;
     }
+
+    public String toString()
+    {
+        return "(" + Integer.toString(m_x) + ", " + Integer.toString(m_y) + ") ";
+    }
 }

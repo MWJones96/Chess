@@ -3,6 +3,7 @@ package Game;
 import Pieces.*;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Game
@@ -54,12 +55,21 @@ public class Game
                 continue;
             }
 
+            Piece p = m_board.m_pieces[x][y];
+            String m = "";
+
+            for(int i = 0; i < p.getMoves().size(); i++)
+            {
+                m = m.concat(p.getMoves().get(i).toString());
+            }
+
+            System.out.println("Possible moves: " + m);
+
             System.out.println("Select a destination: ");
 
             int x2 = s.nextInt();
             int y2 = s.nextInt();
 
-            Piece p = m_board.m_pieces[x][y];
             m_board.m_pieces[x][y] = null;
 
             m_board.m_pieces[x2][y2] = p;

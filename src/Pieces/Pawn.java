@@ -20,6 +20,7 @@ public class Pawn extends Piece
 
         if(m_color == Color.WHITE)
         {
+            System.out.println(g.m_board.m_pieces[this.m_pos[0]][this.m_pos[1] - 1]);
             if (g.m_board.m_pieces[this.m_pos[0]][this.m_pos[1] - 1] == null)
             {
                 moves.add(new Move(this.m_pos[0], this.m_pos[1] - 1));
@@ -33,7 +34,7 @@ public class Pawn extends Piece
                 }
             }
 
-            if(this.m_pos[0] > 0)
+            /*if(this.m_pos[0] > 0)
             {
                 if (g.m_board.m_pieces[this.m_pos[0] - 1][this.m_pos[1] - 1].m_color == Color.BLACK) {
                     moves.add(new Move(this.m_pos[0] - 1, this.m_pos[1] - 1));
@@ -44,11 +45,22 @@ public class Pawn extends Piece
 
                 if (g.m_board.m_pieces[this.m_pos[0] + 1][this.m_pos[1] - 1].m_color == Color.BLACK) {
                     moves.add(new Move(this.m_pos[0] + 1, this.m_pos[1] - 1));
-                }
+                }*/
         }
         else if(m_color == Color.BLACK)
         {
+            if (g.m_board.m_pieces[this.m_pos[0]][this.m_pos[1] + 1] == null)
+            {
+                moves.add(new Move(this.m_pos[0], this.m_pos[1] + 1));
+            }
 
+            if(this.m_pos[1] == 1)
+            {
+                if (g.m_board.m_pieces[this.m_pos[0]][this.m_pos[1] + 1] == null &&
+                        g.m_board.m_pieces[this.m_pos[0]][this.m_pos[1] + 2] == null) {
+                    moves.add(new Move(this.m_pos[0], this.m_pos[1] + 2));
+                }
+            }
         }
 
         //TODO: Promotion, en Passant
