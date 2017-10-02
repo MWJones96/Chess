@@ -29,7 +29,7 @@ public class Queen extends Piece
 
         if (m_color == Color.WHITE) {
 
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 8; i++) {
                 int x = m_pos[0];
                 int y = m_pos[1];
                 while (true) {
@@ -53,7 +53,7 @@ public class Queen extends Piece
             }
         }
         else if (m_color == Color.BLACK) {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 8; i++) {
                 int x = m_pos[0];
                 int y = m_pos[1];
 
