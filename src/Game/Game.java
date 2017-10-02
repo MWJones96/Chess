@@ -75,9 +75,8 @@ public class Game
             int x2 = s.nextInt();
             int y2 = s.nextInt();
 
-            m_board.m_pieces[x][y] = null;
-
-            m_board.m_pieces[x2][y2] = p;
+            m_board.removePiece(x, y);
+            p.move(x2, y2);
 
             turn = !turn;
         }

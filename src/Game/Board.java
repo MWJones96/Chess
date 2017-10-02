@@ -16,5 +16,11 @@ public class Board
     public void putPiece(int x, int y, Piece p)
     {
         m_pieces[x][y] = p;
+        p.m_pos = new int[]{x, y};
+    }
+
+    public void removePiece(int x, int y)
+    {
+        m_pieces[x][y] = null;
     }
 }

@@ -17,4 +17,7 @@ public class Bishop extends Piece
     {
         return null;
     }
+
+    public void move(int x, int y)
+    {}
 }

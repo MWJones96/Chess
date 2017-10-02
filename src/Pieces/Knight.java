@@ -15,6 +15,23 @@ public class Knight extends Piece
 
     public ArrayList<Move> getMoves()
     {
-        return null;
+        ArrayList<Move> moves = new ArrayList<Move>();
+
+        Move[] m = new Move[]{new Move(2, 1),
+                              new Move(2, -1),
+                              new Move(1, -2),
+                              new Move(-1, -2),
+                              new Move(-2, 1),
+                              new Move(-2, -1),
+                              new Move(1, 2),
+                              new Move(-1, 2)};
+
+
+        return moves;
+    }
+
+    public void move(int x, int y)
+    {
+
     }
 }

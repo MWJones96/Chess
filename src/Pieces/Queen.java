@@ -17,4 +17,9 @@ public class Queen extends Piece
     {
         return null;
     }
+
+    public void move(int x, int y)
+    {
+
+    }
 }

@@ -21,4 +21,6 @@ public abstract class Piece
     }
 
     public abstract ArrayList<Move> getMoves();
+
+    public abstract void move(int x, int y);
 }
