@@ -18,47 +18,28 @@ public class Pawn extends Piece
         ArrayList<Move> moves = new ArrayList<Move>();
         Game g = Game.getInstance();
 
+        int x = m_pos[0];
+        int y = m_pos[1];
+
         if(m_color == Color.WHITE)
         {
-            System.out.println(g.m_board.m_pieces[this.m_pos[0]][this.m_pos[1] - 1]);
-            if (g.m_board.m_pieces[this.m_pos[0]][this.m_pos[1] - 1] == null)
+            if(g.m_board.m_pieces[x][y - 1] == null)
             {
-                moves.add(new Move(this.m_pos[0], this.m_pos[1] - 1));
-            }
-
-            if(this.m_pos[1] == 6)
-            {
-                if (g.m_board.m_pieces[this.m_pos[0]][this.m_pos[1] - 1] == null &&
-                        g.m_board.m_pieces[this.m_pos[0]][this.m_pos[1] - 2] == null) {
-                    moves.add(new Move(this.m_pos[0], this.m_pos[1] - 2));
+                moves.add(new Move(x, y - 1));
+                if(y == g.m_board.m_size - 2 && g.m_board.m_pieces[x][y - 2] == null)
+                {
+                    moves.add(new Move(x, y - 2));
                 }
             }
-
-            /*if(this.m_pos[0] > 0)
-            {
-                if (g.m_board.m_pieces[this.m_pos[0] - 1][this.m_pos[1] - 1].m_color == Color.BLACK) {
-                    moves.add(new Move(this.m_pos[0] - 1, this.m_pos[1] - 1));
-                }
-            }
-
-            if(this.m_pos[0] < g.m_board.m_size - 1)
-
-                if (g.m_board.m_pieces[this.m_pos[0] + 1][this.m_pos[1] - 1].m_color == Color.BLACK) {
-                    moves.add(new Move(this.m_pos[0] + 1, this.m_pos[1] - 1));
-                }*/
         }
         else if(m_color == Color.BLACK)
         {
-            if (g.m_board.m_pieces[this.m_pos[0]][this.m_pos[1] + 1] == null)
+            if(g.m_board.m_pieces[x][y + 1] == null)
             {
-                moves.add(new Move(this.m_pos[0], this.m_pos[1] + 1));
-            }
-
-            if(this.m_pos[1] == 1)
-            {
-                if (g.m_board.m_pieces[this.m_pos[0]][this.m_pos[1] + 1] == null &&
-                        g.m_board.m_pieces[this.m_pos[0]][this.m_pos[1] + 2] == null) {
-                    moves.add(new Move(this.m_pos[0], this.m_pos[1] + 2));
+                moves.add(new Move(x, y + 1));
+                if(y == 1 && g.m_board.m_pieces[x][y + 2] == null)
+                {
+                    moves.add(new Move(x, y + 2));
                 }
             }
         }

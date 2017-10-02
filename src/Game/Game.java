@@ -1,8 +1,10 @@
 package Game;
 
 import Pieces.*;
+import Game.Move;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -56,14 +58,17 @@ public class Game
             }
 
             Piece p = m_board.m_pieces[x][y];
-            String m = "";
 
-            for(int i = 0; i < p.getMoves().size(); i++)
+            ArrayList<Move> m = p.getMoves();
+
+            String mStr = "";
+
+            for(int i = 0; i < m.size(); i++)
             {
-                m = m.concat(p.getMoves().get(i).toString());
+                mStr = mStr.concat(m.get(i).toString());
             }
 
-            System.out.println("Possible moves: " + m);
+            System.out.println("Possible moves: " + mStr);
 
             System.out.println("Select a destination: ");
 
