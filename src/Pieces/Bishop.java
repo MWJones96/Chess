@@ -13,6 +13,7 @@ public class Bishop extends Piece
         super(color, pos, type, 'B');
     }
 
+    @Override
     public ArrayList<Move> getMoves()
     {
         ArrayList<Move> moves = new ArrayList<Move>();
@@ -87,6 +88,7 @@ public class Bishop extends Piece
         return moves;
     }
 
+    @Override
     public void move(int x, int y)
     {
         Game g = Game.getInstance();

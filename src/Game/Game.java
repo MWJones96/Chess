@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**Represents the state of the game. Implemented as Singleton Pattern as there should only be ONE at once
+ *
+ */
 public class Game
 {
     //Singleton game instance
@@ -15,9 +18,11 @@ public class Game
 
     //White == true, black == false
     boolean turn = true;
+    //Whether the game is ongoing
     boolean playing = true;
 
     public Player[] m_players;
+    //Gameboard
     public Board m_board;
 
     private Game()
@@ -27,6 +32,10 @@ public class Game
         m_board = new Board(8);
     }
 
+    /**Singleton pattern for game instance
+     *
+     * @return - The game instance
+     */
     public static Game getInstance()
     {
         if(instance == null)
@@ -37,51 +46,93 @@ public class Game
         return instance;
     }
 
+    /**Deals with all activities involved in a game of Chess
+     *
+     */
     public void play()
     {
         Scanner s = new Scanner(System.in);
         while(playing)
         {
+            String c = (turn) ? "White" : "Black";
+            Color color = (turn) ? Color.WHITE : Color.BLACK;
+
+            System.out.println(c + "'s turn");
             printBoard();
-            String t = (turn) ? "White" : "Black";
-            System.out.println(t + "'s turn. Select an index: ");
+            System.out.println("Please select a location: ");
 
-            int x = s.nextInt();
-            int y = s.nextInt();
+            int x1 = s.nextInt();
+            int y1 = s.nextInt();
 
-            Color c = (turn) ? Color.WHITE : Color.BLACK;
-
-            if(m_board.m_pieces[x][y] == null || m_board.m_pieces[x][y].m_color != c || x >= m_board.m_size || y >= m_board.m_size)
+            //Validates initial selection
+            if(x1 < 0 || y1 < 0 || x1 > m_board.m_size - 1 || y1 > m_board.m_size - 1)
             {
-                System.out.println("Invalid selection");
+                System.out.println("Index out of bounds");
                 continue;
             }
 
-            Piece p = m_board.m_pieces[x][y];
-
-            ArrayList<Move> m = p.getMoves();
-
-            String mStr = "";
-
-            for(int i = 0; i < m.size(); i++)
+            if(m_board.m_pieces[x1][y1] == null)
             {
-                mStr = mStr.concat(m.get(i).toString());
+                System.out.println("Empty square selected");
+                continue;
             }
 
-            System.out.println("Possible moves: " + mStr);
+            if(m_board.m_pieces[x1][y1].m_color != color)
+            {
+                System.out.println("Selected wrong colour piece");
+                continue;
+            }
 
-            System.out.println("Select a destination: ");
+            Piece p = m_board.m_pieces[x1][y1];
+            ArrayList<Move> moves = p.getMoves();
+            String m = "";
+
+            for(Move move : moves)
+            {
+                m = m.concat(move.toString());
+            }
+
+            System.out.println("Available moves: " + m);
+            System.out.println("Please select a destination: ");
 
             int x2 = s.nextInt();
             int y2 = s.nextInt();
 
-            m_board.removePiece(x, y);
-            p.move(x2, y2);
+            //Validates destination
+            if(!containsMove(new Move(x2, y2), moves))
+            {
+                System.out.println("Not a valid move");
+                continue;
+            }
+
+            m_board.movePiece(x1, y1, x2, y2);
 
             turn = !turn;
         }
     }
 
+    /**Checks if a given move is valdi for the piece selected
+     *
+     * @param m - The move to be checked
+     * @param moves - The possible moves the current selection can move to
+     * @return - Whether the move is in the list
+     */
+    public boolean containsMove(Move m, ArrayList<Move> moves)
+    {
+        for(int i = 0; i < moves.size(); i++)
+        {
+            if(moves.get(i).equals(m))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**Initialises the board to the state of a standard game of chess
+     *
+     */
     public void initBoard()
     {
         Pawn p = new Pawn(Color.WHITE, new int[]{0, 6}, Type.PAWN);
@@ -181,6 +232,8 @@ public class Game
         m_board.putPiece(k.m_pos[0], k.m_pos[1], k);
     }
 
+    /**Prints out the current state of the board
+     */
     public void printBoard()
     {
         for(int i = 0; i < m_board.m_size; i++)

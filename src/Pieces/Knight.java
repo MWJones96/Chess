@@ -13,6 +13,7 @@ public class Knight extends Piece
         super(color, pos, type, 'N');
     }
 
+    @Override
     public ArrayList<Move> getMoves()
     {
         ArrayList<Move> moves = new ArrayList<Move>();
@@ -70,6 +71,7 @@ public class Knight extends Piece
         return moves;
     }
 
+    @Override
     public void move(int x, int y)
     {
         Game g = Game.getInstance();

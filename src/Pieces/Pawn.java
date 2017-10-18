@@ -13,6 +13,7 @@ public class Pawn extends Piece
         super(color, pos, type, 'P');
     }
 
+    @Override
     public ArrayList<Move> getMoves()
     {
         ArrayList<Move> moves = new ArrayList<Move>();
@@ -82,6 +83,40 @@ public class Pawn extends Piece
         return moves;
     }
 
+    public ArrayList<Move> getAttackableMoves()
+    {
+        Game g = Game.getInstance();
+        ArrayList<Move> moves = new ArrayList<Move>();
+
+        if(m_color == Color.WHITE)
+        {
+            if(!(m_pos[0] - 1 < 0 || m_pos[1] - 1 < 0))
+            {
+                moves.add(new Move(m_pos[0] - 1, m_pos[1] - 1));
+            }
+
+            if(!(m_pos[0] + 1 > g.m_board.m_size - 1 || m_pos[1] - 1 < 0))
+            {
+                moves.add(new Move(m_pos[0] + 1, m_pos[1] - 1));
+            }
+        }
+        else
+        {
+            if(!(m_pos[0] - 1 < 0 || m_pos[1] + 1 > g.m_board.m_size - 1))
+            {
+                moves.add(new Move(m_pos[0] - 1, m_pos[1] + 1));
+            }
+
+            if(!(m_pos[0] + 1 > g.m_board.m_size - 1 || m_pos[1] + 1 > g.m_board.m_size - 1))
+            {
+                moves.add(new Move(m_pos[0] + 1, m_pos[1] + 1));
+            }
+        }
+
+        return moves;
+    }
+
+    @Override
     public void move(int x, int y)
     {
         Game g = Game.getInstance();

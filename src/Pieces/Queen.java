@@ -13,6 +13,7 @@ public class Queen extends Piece
         super(color, pos, type, 'Q');
     }
 
+    @Override
     public ArrayList<Move> getMoves()
     {
         ArrayList<Move> moves = new ArrayList<Move>();
@@ -82,6 +83,7 @@ public class Queen extends Piece
         return moves;
     }
 
+    @Override
     public void move(int x, int y)
     {
         Game g = Game.getInstance();

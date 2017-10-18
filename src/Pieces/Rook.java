@@ -13,6 +13,7 @@ public class Rook extends Piece
         super(color, pos, type, 'R');
     }
 
+    @Override
     public ArrayList<Move> getMoves() {
         ArrayList<Move> moves = new ArrayList<Move>();
         Game g = Game.getInstance();
@@ -76,6 +77,7 @@ public class Rook extends Piece
         return moves;
     }
 
+    @Override
     public void move(int x, int y)
     {
         Game g = Game.getInstance();
