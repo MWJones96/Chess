@@ -3,6 +3,7 @@ package Game;
 import Pieces.*;
 import Game.Move;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,8 @@ public class Game
 {
     //Singleton game instance
     private static Game instance = null;
+
+    public GUI gui;
 
     //White == true, black == false
     boolean turn = true;
@@ -30,6 +33,7 @@ public class Game
         turn = true;
         m_players = new Player[2];
         m_board = new Board(8);
+        gui = new GUI();
     }
 
     /**Singleton pattern for game instance
@@ -85,6 +89,13 @@ public class Game
 
             Piece p = m_board.m_pieces[x1][y1];
             ArrayList<Move> moves = p.getMoves();
+
+            for(Move legals : moves)
+            {
+                Color dest = (legals.m_x + legals.m_y) % 2 != 0 ? Color.decode("#228B22"): Color.decode("#ADFF2F");
+                gui.buttons[legals.m_x][legals.m_y].setBackground(dest);
+            }
+
             String m = "";
 
             for(Move move : moves)
@@ -101,11 +112,26 @@ public class Game
             //Validates destination
             if(!containsMove(new Move(x2, y2), moves))
             {
+                for(Move o : moves)
+                {
+                    Color cancel = (o.m_x + o.m_y) % 2 != 0 ? Color.BLACK : Color.WHITE;
+                    gui.buttons[o.m_x][o.m_y].setBackground(cancel);
+                }
+
                 System.out.println("Not a valid move");
                 continue;
             }
 
             m_board.movePiece(x1, y1, x2, y2);
+            ImageIcon i = (ImageIcon)gui.buttons[x1][y1].getIcon();
+            gui.buttons[x1][y1].setIcon(null);
+            gui.buttons[x2][y2].setIcon(i);
+
+            for(Move o : moves)
+            {
+                Color orig = (o.m_x + o.m_y) % 2 != 0 ? Color.BLACK : Color.WHITE;
+                gui.buttons[o.m_x][o.m_y].setBackground(orig);
+            }
 
             turn = !turn;
         }
