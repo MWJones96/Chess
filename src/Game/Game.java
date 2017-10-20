@@ -5,6 +5,8 @@ import Game.Move;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -27,6 +29,13 @@ public class Game
     public Player[] m_players;
     //Gameboard
     public Board m_board;
+
+    volatile int x1 = -1;
+    volatile int y1 = -1;
+    volatile int x2 = -1;
+    volatile int y2 = -1;
+
+    boolean origOrDest = false;
 
     private Game()
     {
@@ -55,9 +64,14 @@ public class Game
      */
     public void play()
     {
-        Scanner s = new Scanner(System.in);
-        while(playing)
-        {
+        while(playing) {
+            origOrDest = false;
+            x1 = -1;
+            x2 = -1;
+            y1 = -1;
+            y2 = -1;
+
+
             String c = (turn) ? "White" : "Black";
             Color color = (turn) ? Color.WHITE : Color.BLACK;
 
@@ -65,8 +79,8 @@ public class Game
             printBoard();
             System.out.println("Please select a location: ");
 
-            int x1 = s.nextInt();
-            int y1 = s.nextInt();
+            while(x1 == -1 || y1 == -1)
+            {}
 
             //Validates initial selection
             if(x1 < 0 || y1 < 0 || x1 > m_board.m_size - 1 || y1 > m_board.m_size - 1)
@@ -87,6 +101,8 @@ public class Game
                 continue;
             }
 
+            origOrDest = true;
+
             Piece p = m_board.m_pieces[x1][y1];
             ArrayList<Move> moves = p.getMoves();
 
@@ -106,8 +122,8 @@ public class Game
             System.out.println("Available moves: " + m);
             System.out.println("Please select a destination: ");
 
-            int x2 = s.nextInt();
-            int y2 = s.nextInt();
+            while(x2 == -1 || y2 == -1)
+            {}
 
             //Validates destination
             if(!containsMove(new Move(x2, y2), moves))
@@ -135,6 +151,18 @@ public class Game
 
             turn = !turn;
         }
+    }
+
+    public void setOrigin(int x, int y)
+    {
+        x1 = x;
+        y1 = y;
+    }
+
+    public void setDest(int x, int y)
+    {
+        x2 = x;
+        y2 = y;
     }
 
     /**Checks if a given move is valdi for the piece selected

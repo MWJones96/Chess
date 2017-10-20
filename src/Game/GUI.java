@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
 
 public class GUI
 {
@@ -41,8 +45,12 @@ public class GUI
                     public void actionPerformed(ActionEvent e)
                     {
                         ChessButton b = (ChessButton) e.getSource();
-
                         System.out.println("Button pressed: " + Integer.toString(b.m_x) + ", " + Integer.toString(b.m_y));
+                        Game g = Game.getInstance();
+                        if(!g.origOrDest)
+                            g.setOrigin(b.m_x, b.m_y);
+                        else
+                            g.setDest(b.m_x, b.m_y);
                     }
                 });
                 frame.add(buttons[j][i]);

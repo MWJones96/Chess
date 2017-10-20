@@ -113,13 +113,6 @@ public class King extends Piece
     public boolean isCheck(int x, int y)
     {
         Game g = Game.getInstance();
-        Piece piece = null;
-
-        if(g.m_board.m_pieces[x][y] != null)
-        {
-            piece = g.m_board.m_pieces[x][y];
-            g.m_board.m_pieces[x][y] = null;
-        }
 
         for(Piece[] p1 : g.m_board.m_pieces)
         {
@@ -137,7 +130,6 @@ public class King extends Piece
                 {
                     if(g.containsMove(new Move(x, y), ((Pawn)p).getAttackableMoves()))
                     {
-                        g.m_board.m_pieces[x][y] = p;
                         return true;
                     }
                 }
@@ -145,7 +137,6 @@ public class King extends Piece
                 {
                     if(g.containsMove(new Move(x, y), ((King)p).getAttackableMoves()))
                     {
-                        g.m_board.m_pieces[x][y] = p;
                         return true;
                     }
                 }
@@ -153,14 +144,12 @@ public class King extends Piece
                 {
                     if(g.containsMove(new Move(x, y), p.getMoves()))
                     {
-                        g.m_board.m_pieces[x][y] = p;
                         return true;
                     }
                 }
             }
         }
 
-        g.m_board.m_pieces[x][y] = piece;
         return false;
     }
 
