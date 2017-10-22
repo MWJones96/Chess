@@ -138,10 +138,11 @@ public class Game
                 continue;
             }
 
-            m_board.movePiece(x1, y1, x2, y2);
             ImageIcon i = (ImageIcon)gui.buttons[x1][y1].getIcon();
             gui.buttons[x1][y1].setIcon(null);
             gui.buttons[x2][y2].setIcon(i);
+
+            p.move(x2, y2);
 
             for(Move o : moves)
             {

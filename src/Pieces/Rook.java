@@ -81,6 +81,6 @@ public class Rook extends Piece
     public void move(int x, int y)
     {
         Game g = Game.getInstance();
-        g.m_board.putPiece(x, y, this);
+        g.m_board.movePiece(this.m_pos[0], this.m_pos[1], x, y);
     }
 }

@@ -3,6 +3,7 @@ package Pieces;
 import Game.Game;
 import Game.Move;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -122,20 +123,22 @@ public class Pawn extends Piece
         Game g = Game.getInstance();
         if(m_color == Color.WHITE)
         {
-            g.m_board.putPiece(x, y, this);
+            g.m_board.movePiece(this.m_pos[0], this.m_pos[1], x, y);
 
             if(y == 0)
             {
                 g.m_board.putPiece(x, y, new Queen(Color.WHITE, new int[]{x, y}, Type.QUEEN));
+                g.gui.buttons[x][y].setIcon(new ImageIcon("res/white_queen.png"));
             }
         }
         else if(m_color == Color.BLACK)
         {
-            g.m_board.putPiece(x, y, this);
+            g.m_board.movePiece(this.m_pos[0], this.m_pos[1], x, y);
 
             if(y == g.m_board.m_size - 1)
             {
                 g.m_board.putPiece(x, y, new Queen(Color.BLACK, new int[]{x, y}, Type.QUEEN));
+                g.gui.buttons[x][y].setIcon(new ImageIcon("res/black_queen.png"));
             }
         }
     }
