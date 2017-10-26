@@ -111,6 +111,7 @@ public class GUI
         frame.setLocationRelativeTo(null);
         frame.setIconImage(new ImageIcon("/res/white_king.png").getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setIconImage(white_king.getImage());
         frame.pack();
         frame.setVisible(true);
     }
