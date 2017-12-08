@@ -40,17 +40,14 @@ public class GUI
                     buttons[j][i].setBackground(Color.WHITE);
                 buttons[j][i].setOpaque(true);
                 buttons[j][i].setBorderPainted(false);
+                buttons[j][i].setFocusPainted(false);
                 buttons[j][i].addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
                         ChessButton b = (ChessButton) e.getSource();
-                        System.out.println("Button pressed: " + Integer.toString(b.m_x) + ", " + Integer.toString(b.m_y));
                         Game g = Game.getInstance();
-                        if(!g.origOrDest)
-                            g.setOrigin(b.m_x, b.m_y);
-                        else
-                            g.setDest(b.m_x, b.m_y);
+                        g.processButtonPress(b.m_x, b.m_y);
                     }
                 });
                 frame.add(buttons[j][i]);

@@ -16,85 +16,7 @@ public class King extends Piece
     @Override
     public ArrayList<Move> getMoves()
     {
-        ArrayList<Move> moves = new ArrayList<Move>();
-        Game g = Game.getInstance();
-
-        Move[] m = new Move[]{new Move(1, 0),
-                              new Move(1, 1),
-                              new Move(0, 1),
-                              new Move(-1, 1),
-                              new Move(-1, 0),
-                              new Move(-1, -1),
-                              new Move(0, -1),
-                              new Move(1, -1)
-        };
-
-        for(Move m1 : m)
-        {
-            if(m_pos[0] + m1.m_x < 0 || m_pos[0] + m1.m_x > g.m_board.m_size - 1
-                    || m_pos[1] + m1.m_y < 0 || m_pos[1] + m1.m_y > g.m_board.m_size - 1)
-            {
-                continue;
-            }
-
-            if(g.m_board.m_pieces[m_pos[0] + m1.m_x][m_pos[1] + m1.m_y] != null)
-            {
-                if (g.m_board.m_pieces[m_pos[0] + m1.m_x][m_pos[1] + m1.m_y].m_color == m_color)
-                {
-                    continue;
-                }
-                else
-                {
-                    if(!isCheck(m_pos[0] + m1.m_x, m_pos[1] + m1.m_y))
-                    {
-                        moves.add(new Move(m_pos[0] + m1.m_x, m_pos[1] + m1.m_y));
-                    }
-                }
-            }
-            else
-            {
-                if(!isCheck(m_pos[0] + m1.m_x, m_pos[1] + m1.m_y))
-                {
-                    moves.add(new Move(m_pos[0] + m1.m_x, m_pos[1] + m1.m_y));
-                }
-            }
-
-        }
-
-        return moves;
-    }
-
-    /**Gets the list of squares that the King can attack. Used to determine if the enemy King is in Check
-     *
-     * @return - List of attackable squares
-     */
-    public ArrayList<Move> getAttackableMoves()
-    {
-        Game g = Game.getInstance();
-        ArrayList<Move> moves = new ArrayList<Move>();
-
-        Move[] m = new Move[]{new Move(1, 0),
-                new Move(1, 1),
-                new Move(0, 1),
-                new Move(-1, 1),
-                new Move(-1, 0),
-                new Move(-1, -1),
-                new Move(0, -1),
-                new Move(1, -1)
-        };
-
-        for(Move m1 : m)
-        {
-            if(m_pos[0] + m1.m_x < 0 || m_pos[0] + m1.m_x > g.m_board.m_size - 1
-                    || m_pos[1] + m1.m_y < 0 || m_pos[1] + m1.m_y > g.m_board.m_size - 1)
-            {
-                continue;
-            }
-
-            moves.add(new Move(m_pos[0] + m1.m_x, m_pos[1] + m1.m_y));
-        }
-
-        return moves;
+        return null;
     }
 
     @Override
@@ -112,44 +34,6 @@ public class King extends Piece
      */
     public boolean isCheck(int x, int y)
     {
-        Game g = Game.getInstance();
-
-        for(Piece[] p1 : g.m_board.m_pieces)
-        {
-            for(Piece p : p1)
-            {
-                if(p == null)
-                {
-                    continue;
-                }
-                if(p.m_color == m_color)
-                {
-                    continue;
-                }
-                if(p.m_type == Type.PAWN)
-                {
-                    if(g.containsMove(new Move(x, y), ((Pawn)p).getAttackableMoves()))
-                    {
-                        return true;
-                    }
-                }
-                else if(p.m_type == Type.KING)
-                {
-                    if(g.containsMove(new Move(x, y), ((King)p).getAttackableMoves()))
-                    {
-                        return true;
-                    }
-                }
-                else
-                {
-                    if(g.containsMove(new Move(x, y), p.getMoves()))
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-
         return false;
     }
 
