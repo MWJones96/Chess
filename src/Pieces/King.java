@@ -5,6 +5,7 @@ import Game.Move;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class King extends Piece
 {
@@ -16,7 +17,7 @@ public class King extends Piece
     @Override
     public ArrayList<Move> getMoves()
     {
-        return null;
+        return new ArrayList<Move>();
     }
 
     @Override
@@ -26,14 +27,38 @@ public class King extends Piece
         g.m_board.movePiece(this.m_pos[0], this.m_pos[1], x, y);
     }
 
-    /**Checks if square (x, y) will put the King in Check
+    /**Returns whether or not this King is in Check
      *
-     * @param x - x coordinate of square
-     * @param y - y coordinate of square
-     * @return - Whether the square (x, y) will put the King in Check
+     * @return - Whether the King is in Check
      */
-    public boolean isCheck(int x, int y)
+    public boolean isCheck()
     {
+        Game g = Game.getInstance();
+        Piece[][] allPieces = g.m_board.m_pieces;
+        ArrayList<Piece> enemyPieces = new ArrayList<>();
+
+        for(Piece[] p1 : allPieces)
+        {
+            for(Piece p2 : p1)
+            {
+                if(p2 != null)
+                {
+                    if (p2.m_color != m_color)
+                    {
+                        enemyPieces.add(p2);
+                    }
+                }
+            }
+        }
+
+        for(Piece enemy : enemyPieces)
+        {
+            if(g.containsMove(new Move(this.m_pos[0], this.m_pos[1]), enemy.getMoves()))
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 

@@ -57,8 +57,10 @@ public class Game
         return instance;
     }
 
-    /**Deals with all activities involved in a game of Chess
+    /**Advances the state of the game when a button on the GUI is pressed
      *
+     * x - X component of button press
+     * y - Y component of button press
      */
     public void processButtonPress(int x, int y)
     {
@@ -128,11 +130,31 @@ public class Game
                         gui.buttons[m.m_x][m.m_y].setBackground(s);
                     }
 
-                    m_board.movePiece(selectedPiece.m_pos[0], selectedPiece.m_pos[1], x, y);
+                    selectedPiece.move(x, y);
                     pickup = !pickup;
 
                     selectedPiece = null;
                     turn = Color.BLACK;
+
+                    //TODO: Check if BLACK King is in Check
+
+                    King bk = null;
+                    for(Piece[] p1 : m_board.m_pieces)
+                    {
+                        for(Piece p2 : p1)
+                        {
+                            if(p2 != null)
+                            {
+                                if(p2.m_color == Color.BLACK && p2.m_type == Type.KING)
+                                {
+                                    bk = (King)p2;
+                                    bk.isCheck();
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
                     return;
                 }
             }
@@ -203,7 +225,7 @@ public class Game
                         gui.buttons[m.m_x][m.m_y].setBackground(s);
                     }
 
-                    m_board.movePiece(selectedPiece.m_pos[0], selectedPiece.m_pos[1], x, y);
+                    selectedPiece.move(x, y);
                     pickup = !pickup;
                     selectedPiece = null;
                     turn = Color.WHITE;
