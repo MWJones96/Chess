@@ -2,8 +2,6 @@ package Game;
 
 import Pieces.Piece;
 
-import javax.swing.*;
-
 /**Represents the board of the game. Stores current state of board
  */
 public class Board
@@ -17,8 +15,8 @@ public class Board
      */
     public Board(int size)
     {
-        m_size = size;
-        m_pieces = new Piece[size][size];
+        this.m_size = size;
+        this.m_pieces = new Piece[size][size];
     }
 
     /**Moves the piece at (x1,y1) to (x2,y2)
@@ -30,15 +28,12 @@ public class Board
      */
     public void movePiece(int x1, int y1, int x2, int y2)
     {
-        Game g = Game.getInstance();
         Piece p = m_pieces[x1][y1];
 
         m_pieces[x1][y1] = null;
-        p.m_pos = new int[]{x2, y2};
+        p.m_x = x2;
+        p.m_y = y2;
         m_pieces[x2][y2] = p;
-
-        g.gui.buttons[x2][y2].setIcon(g.gui.buttons[x1][y1].getIcon());
-        g.gui.buttons[x1][y1].setIcon(null);
     }
 
     /**Puts a piece on the board. Called during game setup.
@@ -49,22 +44,9 @@ public class Board
      */
     public void putPiece(int x, int y, Piece p)
     {
-        Game g = Game.getInstance();
-        p.m_pos = new int[]{x, y};
+        p.m_x = x;
+        p.m_y = y;
         m_pieces[x][y] = p;
-
-        g.gui.buttons[x][y].setIcon(g.gui.buttons[x][y].getIcon());
     }
 
-    /**
-     *
-     * @param x
-     * @param y
-     */
-    public void removePiece(int x, int y)
-    {
-        Game g = Game.getInstance();
-        m_pieces[x][y] = null;
-        g.gui.buttons[x][y].setIcon(null);
-    }
 }

@@ -15,6 +15,20 @@ public class GUI
 
     public ChessButton[][] buttons;
 
+    public ImageIcon black_rook = new ImageIcon("res/black_rook.png");
+    public ImageIcon black_knight = new ImageIcon("res/black_knight.png");
+    public ImageIcon black_bishop = new ImageIcon("res/black_bishop.png");
+    public ImageIcon black_queen = new ImageIcon("res/black_queen.png");
+    public ImageIcon black_king = new ImageIcon("res/black_king.png");
+    public ImageIcon black_pawn = new ImageIcon("res/black_pawn.png");
+
+    public ImageIcon white_rook = new ImageIcon("res/white_rook.png");
+    public ImageIcon white_knight = new ImageIcon("res/white_knight.png");
+    public ImageIcon white_bishop = new ImageIcon("res/white_bishop.png");
+    public ImageIcon white_queen = new ImageIcon("res/white_queen.png");
+    public ImageIcon white_king = new ImageIcon("res/white_king.png");
+    public ImageIcon white_pawn = new ImageIcon("res/white_pawn.png");
+
     public GUI()
     {
         frame = new JFrame("Chess");
@@ -54,56 +68,6 @@ public class GUI
             }
 
         }
-
-        ImageIcon black_rook = new ImageIcon("res/black_rook.png");
-        ImageIcon black_knight = new ImageIcon("res/black_knight.png");
-        ImageIcon black_bishop = new ImageIcon("res/black_bishop.png");
-        ImageIcon black_queen = new ImageIcon("res/black_queen.png");
-        ImageIcon black_king = new ImageIcon("res/black_king.png");
-        ImageIcon black_pawn = new ImageIcon("res/black_pawn.png");
-
-        ImageIcon white_rook = new ImageIcon("res/white_rook.png");
-        ImageIcon white_knight = new ImageIcon("res/white_knight.png");
-        ImageIcon white_bishop = new ImageIcon("res/white_bishop.png");
-        ImageIcon white_queen = new ImageIcon("res/white_queen.png");
-        ImageIcon white_king = new ImageIcon("res/white_king.png");
-        ImageIcon white_pawn = new ImageIcon("res/white_pawn.png");
-
-        buttons[0][0].setIcon(black_rook);
-        buttons[1][0].setIcon(black_knight);
-        buttons[2][0].setIcon(black_bishop);
-        buttons[3][0].setIcon(black_queen);
-        buttons[4][0].setIcon(black_king);
-        buttons[5][0].setIcon(black_bishop);
-        buttons[6][0].setIcon(black_knight);
-        buttons[7][0].setIcon(black_rook);
-
-        buttons[0][1].setIcon(black_pawn);
-        buttons[1][1].setIcon(black_pawn);
-        buttons[2][1].setIcon(black_pawn);
-        buttons[3][1].setIcon(black_pawn);
-        buttons[4][1].setIcon(black_pawn);
-        buttons[5][1].setIcon(black_pawn);
-        buttons[6][1].setIcon(black_pawn);
-        buttons[7][1].setIcon(black_pawn);
-
-        buttons[0][7].setIcon(white_rook);
-        buttons[1][7].setIcon(white_knight);
-        buttons[2][7].setIcon(white_bishop);
-        buttons[3][7].setIcon(white_queen);
-        buttons[4][7].setIcon(white_king);
-        buttons[5][7].setIcon(white_bishop);
-        buttons[6][7].setIcon(white_knight);
-        buttons[7][7].setIcon(white_rook);
-
-        buttons[0][6].setIcon(white_pawn);
-        buttons[1][6].setIcon(white_pawn);
-        buttons[2][6].setIcon(white_pawn);
-        buttons[3][6].setIcon(white_pawn);
-        buttons[4][6].setIcon(white_pawn);
-        buttons[5][6].setIcon(white_pawn);
-        buttons[6][6].setIcon(white_pawn);
-        buttons[7][6].setIcon(white_pawn);
 
         frame.setLocationRelativeTo(null);
         frame.setIconImage(new ImageIcon("/res/white_king.png").getImage());

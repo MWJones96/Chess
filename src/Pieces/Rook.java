@@ -8,71 +8,71 @@ import java.util.ArrayList;
 
 public class Rook extends Piece
 {
-    public Rook(Color color, int[] pos, Type type)
+    public Rook(Color color, int x, int y, Type type)
     {
-        super(color, pos, type, 'R');
+        super(color, x, y, type, 'R');
     }
 
     @Override
-    public ArrayList<Move> getMoves() {
-        ArrayList<Move> moves = new ArrayList<Move>();
+    public ArrayList<Move> getMoves()
+    {
+        ArrayList<Move> moves = new ArrayList<>();
         Game g = Game.getInstance();
 
-        Move[] grads = new Move[]{new Move(1, 0),
+        Move[] vectors = new Move[]{new Move(1, 0),
                 new Move(0, 1),
                 new Move(-1, 0),
-                new Move(0, -1)};
+                new Move(0, -1)
+        };
 
-        if (m_color == Color.WHITE) {
-            for (int i = 0; i < 4; i++) {
-                int x = m_pos[0];
-                int y = m_pos[1];
-                while (true) {
-                    x += grads[i].m_x;
-                    y += grads[i].m_y;
+        for(Move m : vectors)
+        {
+            int x = this.m_x;
+            int y = this.m_y;
+            while(true)
+            {
+                x += m.m_x;
+                y += m.m_y;
 
-                    if (x < 0 || x > g.m_board.m_size - 1 || y < 0 || y > g.m_board.m_size - 1)
-                        break;
+                if(x < 0 || x > g.m_board.m_size - 1 || y < 0 || y > g.m_board.m_size - 1)
+                    break;
 
-                    if (g.m_board.m_pieces[x][y] == null) {
-                        moves.add(new Move(x, y));
-                    } else {
-                        if (g.m_board.m_pieces[x][y].m_color == Color.BLACK) {
-                            moves.add(new Move(x, y));
-                            break;
-                        } else if (g.m_board.m_pieces[x][y].m_color == Color.WHITE) {
-                            break;
-                        }
-                    }
+                if (g.m_board.m_pieces[x][y] == null)
+                    moves.add(new Move(x, y));
+                else if(g.m_board.m_pieces[x][y].m_color == this.m_color)
+                    break;
+                else
+                {
+                    moves.add(new Move(x, y));
+                    break;
                 }
+
             }
         }
-        else if (m_color == Color.BLACK) {
-            for (int i = 0; i < 4; i++) {
-                int x = m_pos[0];
-                int y = m_pos[1];
 
-                while (true) {
-                    x += grads[i].m_x;
-                    y += grads[i].m_y;
+        return moves;
+    }
 
-                    if (x < 0 || x > g.m_board.m_size - 1 || y < 0 || y > g.m_board.m_size - 1)
-                        break;
+    @Override
+    public ArrayList<Move> getLegalMoves()
+    {
+        ArrayList<Move> moves = getMoves();
+        Game g = Game.getInstance();
 
-                    if (g.m_board.m_pieces[x][y] == null) {
-                        moves.add(new Move(x, y));
-                    } else {
-                        if (g.m_board.m_pieces[x][y].m_color == Color.WHITE) {
-                            moves.add(new Move(x, y));
-                            break;
-                        } else if (g.m_board.m_pieces[x][y].m_color == Color.BLACK) {
-                            break;
-                        }
-                    }
-                }
-            }
+        /*
+        int x_orig = this.m_x;
+        int y_orig = this.m_y;
 
+        for(Move m : moves)
+        {
+            move(m.m_x, m.m_y);
+
+            King k = (this.m_color == Color.WHITE) ? g.wk : g.bk;
+            if(k.isCheck())
+                moves.remove(m);
         }
+
+        move(x_orig, y_orig);*/
 
         return moves;
     }
@@ -81,6 +81,6 @@ public class Rook extends Piece
     public void move(int x, int y)
     {
         Game g = Game.getInstance();
-        g.m_board.movePiece(this.m_pos[0], this.m_pos[1], x, y);
+        g.m_board.movePiece(this.m_x, this.m_y, x, y);
     }
 }
