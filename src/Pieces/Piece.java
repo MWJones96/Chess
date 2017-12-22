@@ -1,5 +1,6 @@
 package Pieces;
 
+import Game.Game;
 import Game.Move;
 
 import java.awt.*;
@@ -38,7 +39,32 @@ public abstract class Piece
      *
      * @return - List of legal moves
      */
-    public abstract ArrayList<Move> getLegalMoves();
+    public ArrayList<Move> getLegalMoves()
+    {
+        ArrayList<Move> moves = getMoves();
+        Game g = Game.getInstance();
+
+        ArrayList<Move> legalMoves = new ArrayList<Move>();
+
+        int x_orig = m_x;
+        int y_orig = m_y;
+
+        for(Move m : moves)
+        {
+            Piece temp = g.m_board.m_pieces[m.m_x][m.m_y];
+            move(m.m_x, m.m_y);
+
+            if(!(m_color == Color.WHITE ? g.wk : g.bk).isCheck())
+            {
+                legalMoves.add(m);
+            }
+
+            move(x_orig, y_orig);
+            g.m_board.m_pieces[m.m_x][m.m_y] = temp;
+        }
+
+        return legalMoves;
+    }
 
     /**Updates the game board to simulate a Piece moving to (x,y)
      *

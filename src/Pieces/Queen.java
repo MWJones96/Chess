@@ -58,30 +58,6 @@ public class Queen extends Piece
     }
 
     @Override
-    public ArrayList<Move> getLegalMoves()
-    {
-        ArrayList<Move> moves = getMoves();
-        Game g = Game.getInstance();
-
-        /*
-        int x_orig = this.m_x;
-        int y_orig = this.m_y;
-
-        for(Move m : moves)
-        {
-            move(m.m_x, m.m_y);
-
-            King k = (this.m_color == Color.WHITE) ? g.wk : g.bk;
-            if(k.isCheck())
-                moves.remove(m);
-        }
-
-        move(x_orig, y_orig);*/
-
-        return moves;
-    }
-
-    @Override
     public void move(int x, int y)
     {
         Game g = Game.getInstance();

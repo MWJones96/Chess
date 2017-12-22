@@ -31,7 +31,7 @@ public class GUI
 
     public GUI()
     {
-        frame = new JFrame("Chess");
+        frame = new JFrame("Chess - White's turn");
 
         buttons = new ChessButton[8][8];
 

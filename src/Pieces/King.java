@@ -52,30 +52,6 @@ public class King extends Piece
     }
 
     @Override
-    public ArrayList<Move> getLegalMoves()
-    {
-        ArrayList<Move> moves = getMoves();
-        Game g = Game.getInstance();
-
-        /*
-        int x_orig = this.m_x;
-        int y_orig = this.m_y;
-
-        for(Move m : moves)
-        {
-            move(m.m_x, m.m_y);
-
-            King k = (this.m_color == Color.WHITE) ? g.wk : g.bk;
-            if(k.isCheck())
-                moves.remove(m);
-        }
-
-        move(x_orig, y_orig);*/
-
-        return moves;
-    }
-
-    @Override
     public void move(int x, int y)
     {
         Game g = Game.getInstance();
@@ -89,14 +65,20 @@ public class King extends Piece
      *
      * @return - Whether the King is in Check
      */
-    public boolean isCheck() { return false; }
-
-    /**Checks if the King is in Stalemate
-     *
-     * @return - Whether the King is in Stalemate
-     */
-    public boolean isStalemate()
+    public boolean isCheck()
     {
+        Game g = Game.getInstance();
+
+        for(Piece[] p1 : g.m_board.m_pieces)
+        {
+            for(Piece p2 : p1)
+            {
+                if(p2 == null){ continue; }
+                if(g.containsMove(new Move(m_x, m_y), p2.getMoves()))
+                    return true;
+            }
+        }
+
         return false;
     }
 
@@ -106,6 +88,24 @@ public class King extends Piece
      */
     public boolean isCheckmate()
     {
-        return false;
+       Game g = Game.getInstance();
+
+       int sum = 0;
+
+       for(Piece[] p1 : g.m_board.m_pieces)
+       {
+           for(Piece p2 : p1)
+           {
+               if(p2 != null)
+               {
+                   if(p2.m_color == this.m_color)
+                   {
+                       sum += p2.getLegalMoves().size();
+                   }
+               }
+           }
+       }
+
+       if(sum == 0){ return true; } else { return false; }
     }
 }

@@ -58,6 +58,9 @@ public class Game {
      */
     public void processButtonPress(int x, int y)
     {
+        if(!playing)
+            return;
+
         if(pickup)
         {
             if(m_board.m_pieces[x][y] == null)
@@ -106,7 +109,6 @@ public class Game {
 
                 pickup = !pickup;
                 return;
-
             }
 
             for(Move m : selectedPiece.getLegalMoves())
@@ -134,9 +136,6 @@ public class Game {
                 }
             }
 
-            System.out.println(selectedPiece.m_x);
-            System.out.println(selectedPiece.m_y);
-
             pickup = !pickup;
 
             selectedPiece = null;
@@ -144,7 +143,30 @@ public class Game {
             //Switches turn
             turn = (turn == Color.WHITE) ? Color.BLACK : Color.WHITE;
 
-            printBoard();
+            gui.frame.setTitle("Chess - " + ((turn == Color.WHITE) ? "White" : "Black") + "'s turn");
+
+            //Checking for Check
+            King k = (turn == Color.WHITE) ? wk : bk;
+
+            if(k.isCheck())
+            {
+                if(k.isCheckmate())
+                {
+                    gui.frame.setTitle("Chess - Checkmate!");
+                    playing = false;
+                }
+                else
+                    gui.frame.setTitle("Chess - " + ((turn == Color.WHITE) ? "White" : "Black") + "'s turn (Check)");
+            }
+            else
+            {
+                //Checking for Stalemate (effectively Checkmate, but the King is not in Check)
+                if(k.isCheckmate())
+                {
+                    gui.frame.setTitle("Chess - Stalemate!");
+                    playing = false;
+                }
+            }
         }
     }
 
